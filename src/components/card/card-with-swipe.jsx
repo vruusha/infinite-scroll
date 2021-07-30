@@ -49,7 +49,7 @@ export class CardSwipe extends React.Component {
      */
     onHandleTouchEnd() {
         //When user swipes the card to extreme right, dismiss the card
-        if (this.touchStart - this.touchEnd < -150) {
+        if (this.touchStart - this.touchEnd < -250) {
             this.dismissCard();
 
         } else {
