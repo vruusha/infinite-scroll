@@ -9,7 +9,7 @@
     "install": "npm i",
     "test": "jest --env=jsdom --watchAll",
     "start": "serve ./public",
-    "api-server": "node server.js",
+    "server": "node server.js",
     "watch": "webpack --watch",
     "start-dev": "webpack serve --open",
     "build": "webpack"
@@ -52,6 +52,7 @@
   "dependencies": {
     "bootstrap": "^5.0.2",
     "core-js": "^3.11.0",
+    "express-favicon": "^2.0.1",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
     "path": "^0.12.7",
