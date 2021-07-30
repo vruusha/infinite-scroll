@@ -1,10 +1,14 @@
 body {
     background-color: #f5f5f5;
     overflow-x: hidden;
-    overscroll-behavior: none;       //To prevent the body scroll on dismissing the card from the list
-
     .main {
         margin-top: 50px;
         margin-bottom: 30px;
     }
+}
+body.no-scroll {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    position: fixed;
 }

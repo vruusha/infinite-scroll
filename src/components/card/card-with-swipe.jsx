@@ -19,8 +19,7 @@ export class CardSwipe extends React.Component {
         super(props);
         this.state = {
             styleTransform: { 
-                transform: `${this.transformAnimation}` ,
-                transition: 'transform .3s ease-in'
+                transform: `${this.transformAnimation}`
             },
             hideCard: false,
             isCardSwiped: false
@@ -66,7 +65,7 @@ export class CardSwipe extends React.Component {
      */
     animateCardSwipe(transformPosition) {
         this.setState({
-            styleTransform: { transform: `translate3d(${transformPosition}px, 0px, 0px)` , transition: 'transform .2s ease-in-out'},
+            styleTransform: { transform: `translate3d(${transformPosition}px, 0px, 0px)`},
             isCardSwiped: true
         });
     }
@@ -92,10 +91,16 @@ export class CardSwipe extends React.Component {
         //onSwipeRight();
     }
 
+    /**
+     * Stopping page scroll when card is swiped to avoid jumpiness
+     */
     stopPageScrolling() {
         document.body.classList.add('no-scroll');
     }
 
+    /**
+     * Resetting the page scroll class
+     */
     resetPageScrolling() {
         document.body.classList.remove('no-scroll');
     }
