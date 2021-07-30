@@ -32,7 +32,6 @@ export class CardSwipe extends React.Component {
 
     onHandleTouchStart(e) {
         this.touchStart = e.targetTouches[0].clientX;
-        this.stopPageScrolling();
     }
 
     onHandleTouchMove(e) {
@@ -41,6 +40,7 @@ export class CardSwipe extends React.Component {
         //Card is being swipped right
         if (this.touchStart < this.touchEnd) {
             this.animateCardSwipe(this.touchEnd);
+            this.stopPageScrolling();
         }
     }
 
