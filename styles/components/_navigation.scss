@@ -1,0 +1,26 @@
+.nav {
+    background-color: #642c8e;
+    height: 55px;
+    width: 100%;
+    color: white;
+    padding: 5px 25px;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+
+    .menu {
+        display: block;
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 35px;
+            height: 25px;
+            margin-right : 20px;
+        }
+    }
+
+    .menu svg {
+        color: white;
+    }
+}
