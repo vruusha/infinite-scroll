@@ -10,8 +10,7 @@
     "start": "node server.js",
     "watch": "webpack --watch",
     "start-dev": "webpack serve --open",
-    "build": "webpack",
-    "heroku-postbuild": "webpack -p"
+    "build": "webpack"
   },
   "engines": {
     "node": ">=14.0.0 <15",
