@@ -40,6 +40,12 @@ export default function MessagewithInfiniteScroll() {
 
     }, [loading, loadMore, currentPageID]);
 
+    if (error) {
+        return (
+            <div>Error Fetching Data</div>
+        );
+    }
+
     return (
 
         <div>
@@ -48,7 +54,6 @@ export default function MessagewithInfiniteScroll() {
                 <Loader></Loader>
             }
             <CardList cards={messages} refCB={lastCardItemCB} />
-            <div>{error && 'Error fetching data'}</div>
         </div>
 
     )
