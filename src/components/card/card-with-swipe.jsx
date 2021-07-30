@@ -18,7 +18,10 @@ export class CardSwipe extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            styleTransform: { transform: `${this.transformAnimation}` },
+            styleTransform: { 
+                transform: `${this.transformAnimation}` ,
+                transition: 'transform .3s ease-in'
+            },
             hideCard: false,
             isCardSwiped: false
         };
@@ -46,7 +49,7 @@ export class CardSwipe extends React.Component {
      */
     onHandleTouchEnd() {
         //When user swipes the card to extreme right, dismiss the card
-        if (this.touchStart - this.touchEnd < -250) {
+        if (this.touchStart - this.touchEnd < -100) {
             this.dismissCard();
 
         } else {
@@ -62,7 +65,7 @@ export class CardSwipe extends React.Component {
      */
     animateCardSwipe(transformPosition) {
         this.setState({
-            styleTransform: { transform: `translate3d(${transformPosition}px, 0px, 0px)` },
+            styleTransform: { transform: `translate3d(${transformPosition}px, 0px, 0px)` , transition: 'transform .2s ease-in-out'},
             isCardSwiped: true
         });
     }

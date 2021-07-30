@@ -33,7 +33,7 @@ export function Card(props) {
                 </div>
             </div>
         </div>
-        <div className="content">
+        <div className="content text-elipsis">
             {content}
         </div>
     </div>)
