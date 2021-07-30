@@ -14,7 +14,7 @@
     "build": "webpack"
   },
   "engines": {
-    "node": ">=7.0.0"
+    "node": ">=14.0.0"
   },
   "author": "Vrushali Sawant",
   "license": "ISC",
@@ -53,7 +53,7 @@
     "core-js": "^3.11.0",
     "express-favicon": "^2.0.1",
     "moment": "^2.29.1",
-    "node-sass": "^4.14",
+    "node-sass": "^6.0.0",
     "path": "^0.12.7",
     "rimraf": "^3.0.2",
     "shortid": "^2.2.8",
