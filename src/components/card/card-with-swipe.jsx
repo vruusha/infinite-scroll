@@ -33,6 +33,7 @@ export class CardSwipe extends React.Component {
 
     onHandleTouchStart(e) {
         this.touchStart = e.targetTouches[0].clientX;
+        this.stopPageScrolling();
     }
 
     onHandleTouchMove(e) {
@@ -49,14 +50,14 @@ export class CardSwipe extends React.Component {
      */
     onHandleTouchEnd() {
         //When user swipes the card to extreme right, dismiss the card
-        if (this.touchStart - this.touchEnd < -100) {
+        if (this.touchStart - this.touchEnd < -150) {
             this.dismissCard();
 
         } else {
             //otherwise Reset the card position
             this.resetCardAnimation();
         }
-
+        this.resetPageScrolling();
     }
 
     /**
@@ -90,6 +91,15 @@ export class CardSwipe extends React.Component {
         // service call or cleanup for the messgae
         //onSwipeRight();
     }
+
+    stopPageScrolling() {
+        document.body.classList.add('no-scroll');
+    }
+
+    resetPageScrolling() {
+        document.body.classList.remove('no-scroll');
+    }
+
 
     render() {
         const { options, showAnimation, onSwipeLeft, onSwipeRight,refCB} = this.props;
