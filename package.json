@@ -7,11 +7,11 @@
   },
   "scripts": {
     "test": "jest --env=jsdom --watchAll",
-    "start": "serve ./public",
-    "server": "node server.js",
+    "start": "node server.js",
     "watch": "webpack --watch",
     "start-dev": "webpack serve --open",
-    "build": "webpack"
+    "build": "webpack",
+    "heroku-postbuild": "webpack -p"
   },
   "engines": {
     "node": ">=14.0.0 <15",
