@@ -54,9 +54,6 @@ export class CardSwipe extends React.Component {
         if (this.touchStart < this.touchEnd) {
             this.animateCardSwipe(this.touchEnd);
             this.stopPageScrolling();
-            console.log('Move card', this.touchStart ,this.touchEnd);
-            console.log('touch: end: Y position', e.targetTouches[0].clientY);
-    
         }
     }
 
@@ -154,7 +151,7 @@ export class CardSwipe extends React.Component {
                 content={content}
                 imageURL={imageURL}
                 imageAlt={imageAlt}
-                onTouchStart={!!showAnimation ? this.onHandleTouchStart : noop}
+                onTouchStart={!!showAnimation ? this.throttle(5,this.onHandleTouchStart) : noop}
                 onTouchMove={!!showAnimation ? this.onHandleTouchMove : noop}
                 onTouchEnd={!!showAnimation ? this.onHandleTouchEnd : noop}
                 styleClasses={styleClasses}
