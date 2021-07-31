@@ -11,7 +11,7 @@ describe('This will test MyComponent', () => {
        const { getByText } = render(<CardList cards = {list}/>)
         expect(getByText('test title')).toMatchInlineSnapshot(`
         <div class="title">
-          Hello world React!
+          Title
         </div>
       `);
   });

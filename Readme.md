@@ -17,18 +17,13 @@ Once you have a good `node` installed, run `npm install` in this repo to get you
 By default, you can run `npm run start-dev` to run your app, serving the files from `/public`. 
 It will start up localhost at 3000 port, or you simply can go to this url: http://localhost:3000/
 
-## Submission Instructions
-1. Write up instructions on how to run your project and ensure there's ample documentation on your intent
-2. Create a zip file containing your solution and all the starter files provided by us. Make sure we can run the application using just the files in the zip. Delete `node_modules` before zipping the project files.
-3. Name your zip file as `dd_takehome_<framework>.zip` (for example, if you used react for the project, your zip file would be named `dd_takehome_react.zip`
-4. Upload the zip file to the Greenhouse link provided by the recruiter. Make sure the recruiter has permissions to access the zip file.
-5. We'll review and get back to you soon!
-
 ## Extra notes
 
 ## Browsers
 1. chrome on Mac
 2. safari on Mac
+3. Safari on Iphone
+4. Chrome on Iphone
 
 ## Engineering decisions drove the solution
 1. Infinite scroll is implemented using IntersectionObserver Api
@@ -62,4 +57,5 @@ It will start up localhost at 3000 port, or you simply can go to this url: http:
    is permanently deleted.
 7. Would add support for deleting the card on desktop as well
 8. Would add custom fonts & iconographs
+
 
