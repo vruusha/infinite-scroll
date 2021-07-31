@@ -26,15 +26,15 @@ export class CardSwipe extends React.Component {
             isCardSwiped: false
         };
 
-        this.onHandleTouchStart = this.onHandleTouchStart.bind(this);
+        this.onHandleTouchStart = this.throttle(10000,this.onHandleTouchStart.bind(this));
         this.onHandleTouchMove = this.onHandleTouchMove.bind(this);
         this.onHandleTouchEnd = this.onHandleTouchEnd.bind(this);
     }
 
     onHandleTouchStart(e) {
 
-        if (!this.touchInProgress) {
-            this.touchStart = e.targetTouches[0].clientX;
+        if (!this.touchInProgress && e?.targetTouches.length === 1) {
+            this.touchStart = e?.targetTouches[0]?.clientX;
             this.touchInProgress = true;
             console.log('Swipe is in progress, setting it to true');
         }
@@ -123,13 +123,17 @@ export class CardSwipe extends React.Component {
         let shouldWait = false;
         
         return function() {
+            var context = this;
+            var args = arguments;
+            console.log('function throttled');
     
             if (!shouldWait) {
                 shouldWait = true;
     
                 setTimeout(()=> {
-                    funct();
+                    funct.apply(context, args);
                     shouldWait = false;
+                    console.log('throtlled func executed');
                 }, delay);
             }
             
@@ -151,7 +155,7 @@ export class CardSwipe extends React.Component {
                 content={content}
                 imageURL={imageURL}
                 imageAlt={imageAlt}
-                onTouchStart={!!showAnimation ? this.throttle(5,this.onHandleTouchStart) : noop}
+                onTouchStart={!!showAnimation ? this.onHandleTouchStart: noop}
                 onTouchMove={!!showAnimation ? this.onHandleTouchMove : noop}
                 onTouchEnd={!!showAnimation ? this.onHandleTouchEnd : noop}
                 styleClasses={styleClasses}
