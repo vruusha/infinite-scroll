@@ -37,7 +37,7 @@ export class CardSwipe extends React.Component {
 
     onHandleTouchMove(e) {
 
-        if (e?.targetTouches[0].length > 1) {
+        if (e?.targetTouches?.length > 1) {
             console.log('Currently dont support multiple touches');
             return ;
         }

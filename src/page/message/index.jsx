@@ -53,7 +53,7 @@ export default function MessagewithInfiniteScroll() {
                 loading && 
                 <Loader></Loader>
             }
-            <CardList cards={messages} refCB={lastCardItemCB} />
+            {messages && messages.length > 0 && <CardList cards={messages} refCB={lastCardItemCB} />}
         </div>
 
     )
