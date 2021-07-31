@@ -15,12 +15,11 @@ export class CardSwipe extends React.Component {
     touchEnd = 0;
     touchEndY = 0;
     transformAnimation = 'translate3d(0px, 0px, 0px)';
-    count = 0;
 
     constructor(props) {
         super(props);
         this.state = {
-            styleTransform: { 
+            styleTransform: {
                 transform: `${this.transformAnimation}`
             },
             hideCard: false,
@@ -36,7 +35,7 @@ export class CardSwipe extends React.Component {
 
         if (e?.targetTouches.length === 1) {
             this.touchStart = e?.targetTouches[0]?.clientX;
-            this.touchStartY= e?.targetTouches[0]?.clientY;
+            this.touchStartY = e?.targetTouches[0]?.clientY;
         }
     }
 
@@ -44,21 +43,13 @@ export class CardSwipe extends React.Component {
 
         if (e?.targetTouches?.length > 1) {
             console.log('Currently dont support multiple touches');
-            return ;
+            return;
         }
         this.touchEnd = e?.targetTouches[0]?.clientX;
         this.touchEndY = e?.targetTouches[0]?.clientY;
-        var x = this.touchEnd- this.touchStart,
-                            xr = Math.abs(x),
-                            y = this.touchEndY  - this.touchStartY,
-                            yr = Math.abs(y);
-                        if (Math.max(xr, yr) > 20) {
-                           var test =  (xr > yr ? (x < 0 ? 'swl' : 'swr') : (y < 0 ? 'swu' : 'swd'));
-                           console.log(test);
-                        }
-    
-        //Card is being swipped right
-        if (test === 'swr') {
+
+        //Check if card is being swipped right
+        if (this.isCardSwipedRight()) {
             this.animateCardSwipe(this.touchEnd);
             this.stopPageScrolling();
         }
@@ -85,7 +76,7 @@ export class CardSwipe extends React.Component {
      */
     animateCardSwipe(transformPosition) {
         this.setState({
-            styleTransform: { transform: `translate3d(${transformPosition}px, 0px, 0px)`},
+            styleTransform: { transform: `translate3d(${transformPosition}px, 0px, 0px)` },
             isCardSwiped: true
         });
     }
@@ -125,9 +116,30 @@ export class CardSwipe extends React.Component {
         document.body.classList.remove('no-scroll');
     }
 
+    /**
+     * Checking touch position to determine swipe direction
+     * @returns boolean
+     */
+    isCardSwipedRight() {
+        var x = this.touchEnd - this.touchStart;
+        var xr = Math.abs(x);
+        var y = this.touchEndY - this.touchStartY;
+        var yr = Math.abs(y);
+        
+        if (Math.max(xr, yr) > 20) {
+            var test = (xr > yr ? (x < 0 ? 'swl' : 'swr') : (y < 0 ? 'swu' : 'swd'));
+
+            if (xr > yr && x >= 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     render() {
-        const { options, showAnimation, onSwipeLeft, onSwipeRight,refCB} = this.props;
-        const { id, title, subTitle, imageAlt, imageURL, content} = options;
+        const { options, showAnimation, onSwipeLeft, onSwipeRight, refCB } = this.props;
+        const { id, title, subTitle, imageAlt, imageURL, content } = options;
         let styleClasses = `${this.state.hideCard ? 'hide ' : ''}${this.state.isCardSwiped ? 'swiped ' : ''}`;
 
         return (
@@ -138,7 +150,7 @@ export class CardSwipe extends React.Component {
                 content={content}
                 imageURL={imageURL}
                 imageAlt={imageAlt}
-                onTouchStart={!!showAnimation ? this.onHandleTouchStart: noop}
+                onTouchStart={!!showAnimation ? this.onHandleTouchStart : noop}
                 onTouchMove={!!showAnimation ? this.onHandleTouchMove : noop}
                 onTouchEnd={!!showAnimation ? this.onHandleTouchEnd : noop}
                 styleClasses={styleClasses}
@@ -150,7 +162,7 @@ export class CardSwipe extends React.Component {
 
 
 CardSwipe.propTypes = {
-    refCB:PropTypes.func,
+    refCB: PropTypes.func,
     onSwipeLeft: PropTypes.func,
     onSwipeRight: PropTypes.func,
     showAnimation: PropTypes.bool,
