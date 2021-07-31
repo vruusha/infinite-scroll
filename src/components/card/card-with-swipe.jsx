@@ -32,15 +32,24 @@ export class CardSwipe extends React.Component {
 
     onHandleTouchStart(e) {
         this.touchStart = e.targetTouches[0].clientX;
+        console.log('touch: start: Y position', e.targetTouches[0].clientY);
     }
 
     onHandleTouchMove(e) {
-        this.touchEnd = e?.targetTouches[0]?.clientX;
 
+        if (e?.targetTouches[0].length > 1) {
+            console.log('Currently dont support multiple touches');
+            return ;
+        }
+        this.touchEnd = e?.targetTouches[0]?.clientX;
+       
         //Card is being swipped right
         if (this.touchStart < this.touchEnd) {
             this.animateCardSwipe(this.touchEnd);
             this.stopPageScrolling();
+            console.log('Move card', this.touchStart ,this.touchEnd);
+            console.log('touch: end: Y position', e.targetTouches[0].clientY);
+    
         }
     }
 
