@@ -25,7 +25,7 @@ export class CardSwipe extends React.Component {
             isCardSwiped: false
         };
 
-        this.onHandleTouchStart = this.throttle(10000,this.onHandleTouchStart.bind(this));
+        this.onHandleTouchStart = this.onHandleTouchStart.bind(this);
         this.onHandleTouchMove = this.onHandleTouchMove.bind(this);
         this.onHandleTouchEnd = this.onHandleTouchEnd.bind(this);
     }
@@ -112,30 +112,6 @@ export class CardSwipe extends React.Component {
     resetPageScrolling() {
         document.body.classList.remove('no-scroll');
     }
-
-    throttle (delay, funct) {
-
-        let shouldWait = false;
-        
-        return function() {
-            var context = this;
-            var args = arguments;
-            console.log('function throttled');
-    
-            if (!shouldWait) {
-                shouldWait = true;
-    
-                setTimeout(()=> {
-                    funct.apply(context, args);
-                    shouldWait = false;
-                    console.log('throtlled func executed');
-                }, delay);
-            }
-            
-        }
-        
-    }
-
 
     render() {
         const { options, showAnimation, onSwipeLeft, onSwipeRight,refCB} = this.props;
