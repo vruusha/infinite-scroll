@@ -14,7 +14,6 @@ export class CardSwipe extends React.Component {
     touchEnd = 0;
     transformAnimation = 'translate3d(0px, 0px, 0px)';
     count = 0;
-    touchInProgress = false;
 
     constructor(props) {
         super(props);
@@ -33,10 +32,8 @@ export class CardSwipe extends React.Component {
 
     onHandleTouchStart(e) {
 
-        if (!this.touchInProgress && e?.targetTouches.length === 1) {
+        if (e?.targetTouches.length === 1) {
             this.touchStart = e?.targetTouches[0]?.clientX;
-            this.touchInProgress = true;
-            console.log('Swipe is in progress, setting it to true');
         }
     }
 
@@ -47,9 +44,7 @@ export class CardSwipe extends React.Component {
             return ;
         }
         this.touchEnd = e?.targetTouches[0]?.clientX;
-        this.touchInProgress = false;
-        console.log('REseting swipe back tp initial state');
-       
+    
         //Card is being swipped right
         if (this.touchStart < this.touchEnd) {
             this.animateCardSwipe(this.touchEnd);
