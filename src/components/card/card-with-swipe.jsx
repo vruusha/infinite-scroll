@@ -11,7 +11,9 @@ const noop = () => ({});
 export class CardSwipe extends React.Component {
 
     touchStart = 0;
+    touchStartY = 0;
     touchEnd = 0;
+    touchEndY = 0;
     transformAnimation = 'translate3d(0px, 0px, 0px)';
     count = 0;
 
@@ -34,6 +36,7 @@ export class CardSwipe extends React.Component {
 
         if (e?.targetTouches.length === 1) {
             this.touchStart = e?.targetTouches[0]?.clientX;
+            this.touchStartY= e?.targetTouches[0]?.clientY;
         }
     }
 
@@ -44,9 +47,18 @@ export class CardSwipe extends React.Component {
             return ;
         }
         this.touchEnd = e?.targetTouches[0]?.clientX;
+        this.touchEndY = e?.targetTouches[0]?.clientY;
+        var x = this.touchEnd- this.touchStart,
+                            xr = Math.abs(x),
+                            y = this.touchEndY  - this.touchStartY,
+                            yr = Math.abs(y);
+                        if (Math.max(xr, yr) > 20) {
+                           var test =  (xr > yr ? (x < 0 ? 'swl' : 'swr') : (y < 0 ? 'swu' : 'swd'));
+                           console.log(test);
+                        }
     
         //Card is being swipped right
-        if (this.touchStart < this.touchEnd) {
+        if (test === 'swr') {
             this.animateCardSwipe(this.touchEnd);
             this.stopPageScrolling();
         }
