@@ -23,33 +23,59 @@ export class CardSwipe extends React.Component {
                 transform: `${this.transformAnimation}`
             },
             hideCard: false,
-            isCardSwiped: false
+            isCardSwiped: false,
+            hasCardOnMouseDownEventTriggered: false
         };
 
         this.onHandleTouchStart = this.onHandleTouchStart.bind(this);
         this.onHandleTouchMove = this.onHandleTouchMove.bind(this);
         this.onHandleTouchEnd = this.onHandleTouchEnd.bind(this);
+        //document.onmouseup = this.onHandleTouchEnd;
     }
 
-    onHandleTouchStart(e) {
+    unify(e) { return e?.targetTouches && e.targetTouches.length === 1 ?  e.targetTouches[0] : e }
 
-        if (e?.targetTouches.length === 1) {
-            this.touchStart = e?.targetTouches[0]?.clientX;
-            this.touchStartY = e?.targetTouches[0]?.clientY;
-        }
+    onHandleTouchStart(eve) {
+
+        document.onmouseup =  this.onHandleTouchEnd;
+
+        this.setState({
+            hasCardOnMouseDownEventTriggered: true,
+        });
+        let e = this.unify(eve);
+        // if (e?.targetTouches.length === 1) {
+        //     this.touchStart = e?.targetTouches[0]?.clientX;
+        //     this.touchStartY = e?.targetTouches[0]?.clientY;
+        //     console.log('##########Touch started########');
+        // }
+
+        this.touchStart = e.clientX;
+        this.touchStartY = e.clientY;
+        console.log('##########onHandleTouchStart########');
+        console.log('##########Touch started: X########', this.touchStart );
+        console.log('##########Touch started: Y########', this.touchStartY );
     }
 
-    onHandleTouchMove(e) {
-
-        if (e?.targetTouches?.length > 1) {
+    onHandleTouchMove(eve, isDesktop = false) {
+        if (eve?.targetTouches?.length > 1) {
             console.log('Currently dont support multiple touches');
             return;
         }
-        this.touchEnd = e?.targetTouches[0]?.clientX;
-        this.touchEndY = e?.targetTouches[0]?.clientY;
+
+        if (isDesktop && !this.state.hasCardOnMouseDownEventTriggered) {
+            return true;
+        }
+        
+        let e = this.unify(eve);
+
+        // this.touchEnd = e?.targetTouches[0]?.clientX;
+        // this.touchEndY = e?.targetTouches[0]?.clientY;
+        this.touchEnd = e.clientX;
+        this.touchEndY = e.clientY;
 
         //Check if card is being swipped right
-        if (this.isCardSwipedRight()) {
+        if (this.touchStart !== 0 && this.isCardSwipedRight()) {
+            console.log('##########isCardSwipedRight########');
             this.animateCardSwipe(this.touchEnd);
             this.stopPageScrolling();
         }
@@ -60,7 +86,8 @@ export class CardSwipe extends React.Component {
      */
     onHandleTouchEnd() {
         //When user swipes the card to extreme right, dismiss the card
-        if (this.touchStart - this.touchEnd < -250) {
+        if (this.touchStart - this.touchEnd < -250 ) {
+            
             this.dismissCard();
 
         } else {
@@ -87,8 +114,10 @@ export class CardSwipe extends React.Component {
     resetCardAnimation() {
         this.setState({
             styleTransform: { transform: `${this.transformAnimation}` },
-            isCardSwiped: false
+            isCardSwiped: false,
+            hasCardOnMouseDownEventTriggered: false
         });
+        document.removeEventListener("mouseup", this.onHandleTouchEnd); 
     }
 
     /**
@@ -125,7 +154,7 @@ export class CardSwipe extends React.Component {
         var xr = Math.abs(x);
         var y = this.touchEndY - this.touchStartY;
         var yr = Math.abs(y);
-        
+
         if (Math.max(xr, yr) > 20) {
             var test = (xr > yr ? (x < 0 ? 'swl' : 'swr') : (y < 0 ? 'swu' : 'swd'));
 

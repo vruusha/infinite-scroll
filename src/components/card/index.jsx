@@ -18,6 +18,8 @@ export function Card(props) {
                     onTouchStart={touchStartEvent => onTouchStart(touchStartEvent)}
                     onTouchMove={touchMoveEvent => onTouchMove(touchMoveEvent)}
                     onTouchEnd={() => onTouchEnd()}
+                    onMouseDown={touchStartEvent => onTouchStart(touchStartEvent)}
+                    onMouseMove={touchMoveEvent => onTouchMove(touchMoveEvent, true)}
                     style={inlineStyles}
                     {...(refCB && { ref: refCB })}
             >

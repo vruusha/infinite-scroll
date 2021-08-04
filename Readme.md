@@ -58,4 +58,11 @@ It will start up localhost at 3000 port, or you simply can go to this url: http:
 7. Would add support for deleting the card on desktop as well
 8. Would add custom fonts & iconographs
 
+## Compromises made To stay under 10hr limit
+1.For card swipe currently only using touch-action: none CSS property, might need a better solution for page jumpiness
+2.Navigation is really basic
+3.Didnt get a chance to add routes for navigation
+4.Styles inlcude the entire boostrap css file, needs cleanup there
+
+
 
