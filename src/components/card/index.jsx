@@ -9,6 +9,7 @@ export function Card(props) {
         refCB, id, title, subTitle,
         imageAlt, imageURL, content,
         onTouchStart, onTouchMove, onTouchEnd,
+        onMouseDown, onMouseMove,
         styleClasses, inlineStyles
     } = props;
 
@@ -18,8 +19,8 @@ export function Card(props) {
                     onTouchStart={touchStartEvent => onTouchStart(touchStartEvent)}
                     onTouchMove={touchMoveEvent => onTouchMove(touchMoveEvent)}
                     onTouchEnd={() => onTouchEnd()}
-                    onMouseDown={touchStartEvent => onTouchStart(touchStartEvent)}
-                    onMouseMove={touchMoveEvent => onTouchMove(touchMoveEvent, true)}
+                    onMouseDown={touchStartEvent => onMouseDown(touchStartEvent)}
+                    onMouseMove={touchMoveEvent => onMouseMove(touchMoveEvent)}
                     style={inlineStyles}
                     {...(refCB && { ref: refCB })}
             >
@@ -55,6 +56,8 @@ Card.propTypes = {
     content: PropTypes.string,
     onTouchStart: PropTypes.func,
     onTouchMove: PropTypes.func,
+    onTouchEnd: PropTypes.func,
+    onMouseDown: PropTypes.func,
     onTouchEnd: PropTypes.func,
     styleClasses: PropTypes.string,
     inlineStyles: PropTypes.object,

@@ -41,12 +41,9 @@
     .card.hide {
         display: none;
     }
-    //Todo animation when carsd is swiped
 
     .card.swiped {
         opacity: 0.4;
-        //animation-duration: 1s;
-        //ransition:all 4s ease-in-out;
-        //animation-name: slidein;
+        transition: transform .5s ease;
     }
 }

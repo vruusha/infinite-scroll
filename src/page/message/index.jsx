@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 
 import { CardList } from './card-list'
 import { Loader } from '../../components/loader/index.jsx';

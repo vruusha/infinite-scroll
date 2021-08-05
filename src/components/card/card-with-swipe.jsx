@@ -10,9 +10,9 @@ const noop = () => ({});
  */
 export class CardSwipe extends React.Component {
 
-    touchStart = 0;
+    touchStartX = 0;
     touchStartY = 0;
-    touchEnd = 0;
+    touchEndX = 0;
     touchEndY = 0;
     transformAnimation = 'translate3d(0px, 0px, 0px)';
 
@@ -24,72 +24,68 @@ export class CardSwipe extends React.Component {
             },
             hideCard: false,
             isCardSwiped: false,
-            hasCardOnMouseDownEventTriggered: false
+            hasOnMouseDownEventTriggered: false
         };
 
         this.onHandleTouchStart = this.onHandleTouchStart.bind(this);
         this.onHandleTouchMove = this.onHandleTouchMove.bind(this);
         this.onHandleTouchEnd = this.onHandleTouchEnd.bind(this);
-        //document.onmouseup = this.onHandleTouchEnd;
     }
 
-    unify(e) { return e?.targetTouches && e.targetTouches.length === 1 ?  e.targetTouches[0] : e }
-
+    /**
+     * Function to track the intiation of swipe/move action on the card
+     * @param {event} eve 
+     */
     onHandleTouchStart(eve) {
-
-        document.onmouseup =  this.onHandleTouchEnd;
+        //Attaching the mouseup event on document only when user starts swiping
+        document.onmouseup = this.onHandleTouchEnd;
 
         this.setState({
-            hasCardOnMouseDownEventTriggered: true,
+            hasOnMouseDownEventTriggered: true,
         });
-        let e = this.unify(eve);
-        // if (e?.targetTouches.length === 1) {
-        //     this.touchStart = e?.targetTouches[0]?.clientX;
-        //     this.touchStartY = e?.targetTouches[0]?.clientY;
-        //     console.log('##########Touch started########');
-        // }
+        let e = this.getTargetTouchEevnt(eve);
 
-        this.touchStart = e.clientX;
+        this.touchStartX = e.clientX;
         this.touchStartY = e.clientY;
-        console.log('##########onHandleTouchStart########');
-        console.log('##########Touch started: X########', this.touchStart );
-        console.log('##########Touch started: Y########', this.touchStartY );
     }
 
+    /**
+     * 
+     * Function to detect the movement of touch or mouse and get the mouse and touch position
+     * and animates the card accoridngly
+     * @param {event} eve 
+     * @param {boolean} isDesktop 
+     * @returns 
+     */
     onHandleTouchMove(eve, isDesktop = false) {
         if (eve?.targetTouches?.length > 1) {
             console.log('Currently dont support multiple touches');
             return;
         }
 
-        if (isDesktop && !this.state.hasCardOnMouseDownEventTriggered) {
-            return true;
+        if (isDesktop && !this.state.hasOnMouseDownEventTriggered) {
+            return;
         }
-        
-        let e = this.unify(eve);
 
-        // this.touchEnd = e?.targetTouches[0]?.clientX;
-        // this.touchEndY = e?.targetTouches[0]?.clientY;
-        this.touchEnd = e.clientX;
+        let e = this.getTargetTouchEevnt(eve);
+
+        this.touchEndX = e.clientX;
         this.touchEndY = e.clientY;
 
-        //Check if card is being swipped right
-        if (this.touchStart !== 0 && this.isCardSwipedRight()) {
-            console.log('##########isCardSwipedRight########');
-            this.animateCardSwipe(this.touchEnd);
+        //Check if card is swipped right
+        if (this.touchStartX !== 0 && this.isCardSwipedRight()) {
+            this.animateCardSwipe(this.touchEndX);
             this.stopPageScrolling();
         }
     }
 
     /***
-     * Handles the swipe event and diismisses the card if swipe is successfull
+     * Handles the touch/mouse swipe event end and dismisses the card if swipe is successfull
      */
     onHandleTouchEnd() {
         //When user swipes the card to extreme right, dismiss the card
-        if (this.touchStart - this.touchEnd < -250 ) {
-            
+        if (this.touchStartX - this.touchEndX < -250) {
             this.dismissCard();
-
         } else {
             //otherwise Reset the card position
             this.resetCardAnimation();
@@ -115,9 +111,9 @@ export class CardSwipe extends React.Component {
         this.setState({
             styleTransform: { transform: `${this.transformAnimation}` },
             isCardSwiped: false,
-            hasCardOnMouseDownEventTriggered: false
+            hasOnMouseDownEventTriggered: false
         });
-        document.removeEventListener("mouseup", this.onHandleTouchEnd); 
+        document.removeEventListener("mouseup", this.onHandleTouchEnd);
     }
 
     /**
@@ -127,8 +123,6 @@ export class CardSwipe extends React.Component {
         this.setState({
             hideCard: true
         });
-        // service call or cleanup for the messgae
-        //onSwipeRight();
     }
 
     /**
@@ -150,24 +144,26 @@ export class CardSwipe extends React.Component {
      * @returns boolean
      */
     isCardSwipedRight() {
-        var x = this.touchEnd - this.touchStart;
+        var x = this.touchEndX - this.touchStartX;
         var xr = Math.abs(x);
         var y = this.touchEndY - this.touchStartY;
         var yr = Math.abs(y);
 
-        if (Math.max(xr, yr) > 20) {
-            var test = (xr > yr ? (x < 0 ? 'swl' : 'swr') : (y < 0 ? 'swu' : 'swd'));
+        if (Math.max(xr, yr) > 20 && xr > yr && x >= 0) {
 
-            if (xr > yr && x >= 0) {
-                return true;
-            }
+            return true;
+
         }
 
         return false;
     }
 
+    getTargetTouchEevnt(e) {
+        return e?.targetTouches && e.targetTouches.length === 1 ? e.targetTouches[0] : e
+    }
+
     render() {
-        const { options, showAnimation, onSwipeLeft, onSwipeRight, refCB } = this.props;
+        const { options, showAnimation, refCB } = this.props;
         const { id, title, subTitle, imageAlt, imageURL, content } = options;
         let styleClasses = `${this.state.hideCard ? 'hide ' : ''}${this.state.isCardSwiped ? 'swiped ' : ''}`;
 
@@ -182,6 +178,8 @@ export class CardSwipe extends React.Component {
                 onTouchStart={!!showAnimation ? this.onHandleTouchStart : noop}
                 onTouchMove={!!showAnimation ? this.onHandleTouchMove : noop}
                 onTouchEnd={!!showAnimation ? this.onHandleTouchEnd : noop}
+                onMouseDown={!!showAnimation ? this.onHandleTouchStart : noop}
+                onMouseMove={!!showAnimation ? (e)=> {this.onHandleTouchMove(e, true)} : noop}
                 styleClasses={styleClasses}
                 inlineStyles={this.state.styleTransform} />
 

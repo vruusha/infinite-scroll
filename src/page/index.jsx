@@ -8,8 +8,10 @@ export class Layout extends React.Component {
         return (
             <ErrorBoundary>
                 <main className="main" role="main">
-                    <div className="container">
-                       <MessagewithInfiniteScroll/>
+                    <div className="row">
+                        <div className="container">
+                            <MessagewithInfiniteScroll/>
+                        </div>
                     </div>
                 </main>
             </ErrorBoundary>

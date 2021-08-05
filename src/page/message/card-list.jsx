@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef, useReducer } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import {CardSwipe} from '../../components/card/card-with-swipe';
 import {lastSeenStatus} from './helper.js';
