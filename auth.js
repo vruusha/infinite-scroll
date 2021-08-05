@@ -1,7 +1,7 @@
 var auth = require('basic-auth');
 
 var admins = {
-  'vruusha': { password: 'mugadha' },
+  'infinite-scroll': { password: 'google' },
 };
 
 
