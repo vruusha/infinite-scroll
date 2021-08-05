@@ -29,21 +29,21 @@ It will start up localhost at 3000 port, or you simply can go to this url: http:
 1. Infinite scroll is implemented using IntersectionObserver Api
    This avoids the need to add window.scroll event and hence events are not triggered on every scroll action. IntersectionObserver allows us to trigger the event when target element intersects with viewport.
 
-3. Wanted to quickly get started on initail design prototype, hence used bootstrap for it's inbuilt grid system.
+3. Wanted to quickly get started on initail design prototype, hence used bootstrap for styles.
 
-4. Added generic and basic component (Atoms) which can be used by any other HOC components in teh components folder.
+4. Added generic and basic component (Atoms) which can be used by any other HOC components in the components folder.
 
-5. Tried to create  HOC  (Cardswipe) that has the swipe animations so that card component is not impacted.
+5. Creater reate  Higher Order Ccomponent (Cardswipe) that has the swipe animations so that card component is not impacted nand it can stay as basic as possible.
 
 ## What user experience questions shaped your prototype
 1.  Hamburger icon gives a impression that this is not just a standalone page but can have more pages
-    or has potential to be atleast a SPA.
+    or has potential to be atleast a SPA. Unfortunately due to lack of time didnt get to introduce routes.
 
-2. On Infinite scroll if the user reaches end of the messages, to avoid making unnecessary service the    
-   solution checks for end of message (does a check on pageToken) and stops the infinite scroll incase if it's true
+2. On Infinite scroll if the user reaches end of the messages, to avoid making unnecessary service calls the    
+   solution checks for end of message (does a check on pageToken) and stops the infinite scroll incase if it's true.
 
 3.  For card swipe had to track every position of the card movement hence had to go with the transform option (can be  
-    improved)
+    improved). 
 
 ## Given more time, what your next would steps be
 1. Add more loader sprites, before loading the first set of messages
@@ -53,16 +53,16 @@ It will start up localhost at 3000 port, or you simply can go to this url: http:
 4. If deviating from the design is accepatble, then would like to propose to have a load more button for the user to click 
    on at the bottom of the message list, so that we dont keep infinitely scrollling unnecessarily
 5. Add Tests
-6. Swiping card to right does not prompt for user confirmation, would a confirmation flow for user to confirm before message 
+6. Swiping card to right does not prompt for user confirmation, would add a confirmation flow for user to confirm before message 
    is permanently deleted.
 7. Would add support for deleting the card on desktop as well
 8. Would add custom fonts & iconographs
 
 ## Compromises made To stay under 10hr limit
-1.For card swipe currently only using touch-action: none CSS property, might need a better solution for page jumpiness
-2.Navigation is really basic
-3.Didnt get a chance to add routes for navigation
-4.Styles inlcude the entire boostrap css file, needs cleanup there
+1.Navigation is really basic
+2.Didnt get a chance to add routes for navigation
+3.Styles inlcude the entire boostrap css file, needs cleanup there
+4.Desktop view is not all defined, would have improved it for better user experience
 
 
 
