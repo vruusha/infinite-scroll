@@ -36,7 +36,7 @@ function CardList(props) {
     });
 
     return (
-        <div className="card-list">
+        <div className="card-list" role="listbox">
             {listItems}
         </div>
     );

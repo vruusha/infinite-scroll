@@ -10,12 +10,12 @@ class Navigation extends React.Component {
 
     render() {
         return (
-            <div className="nav">
+            <nav className="nav">
                 <div className="menu">
-                    <img className="icon-menu" src={MenuIcon} alt="menu" />
+                    <img className="icon-menu" src={MenuIcon} alt="menu" role="image"/>
                     <a>Messages</a>
                 </div>
-            </div>
+            </nav>
 
             
         )

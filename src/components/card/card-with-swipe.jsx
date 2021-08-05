@@ -169,6 +169,7 @@ export class CardSwipe extends React.Component {
 
         return (
             <Card id={id}
+                role="presentation"
                 refCB={refCB}
                 title={title}
                 subTitle={subTitle}
