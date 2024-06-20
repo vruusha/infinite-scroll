@@ -13,7 +13,6 @@ function lastSeenStatus(dateString) {
 
     //Checks for null, empty string and Invalid Date format
     if (!lastSeenDate.isValid()) {
-
         throw new Error('Invalid date', lastSeenDate);
     }
 
@@ -22,15 +21,12 @@ function lastSeenStatus(dateString) {
     let dateDiff = currentDate.diff(lastSeenDate);
 
     if (dateDiff < 0) {
-
         //if date is in past throw error
         throw new Error('Invalid Date, last seen date should be in past', lastSeenDate);
     } else if (dateDiff === 0) {
-
         //If user is online, show online status
         status = ONLINE_STATUS;
     } else {
-
         //else calculate and show the last seen date
         status = lastSeenDate.fromNow();
     }
@@ -38,4 +34,4 @@ function lastSeenStatus(dateString) {
     return status;
 }
 
-export { lastSeenStatus }
+export {lastSeenStatus}
