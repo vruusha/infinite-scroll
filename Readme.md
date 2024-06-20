@@ -3,7 +3,7 @@
 
 ## Howdy! 👋  
 
-This is the frontend project to build Infinite Scroll
+This is the frontend project demonstrating Infinite Scroll
 * Used frameworks: Boostrap, ReactJS, momentjs, webpack, babel
 
 ## Getting started
