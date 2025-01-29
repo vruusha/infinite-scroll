@@ -1,7 +1,7 @@
 {
   "name": "infinite-scroll",
   "version": "1.0.0",
-  "description": "The Frontend take home project for Google",
+  "description": "Infinite scroll",
   "jest": {
     "verbose": true
   },
